@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arkfancy.pokemon.mapper.WarehouseDistributionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.arkfancy.pokemon.entity.WarehouseDistribution">
+        <id column="id" property="id" />
+        <result column="record_date" property="recordDate" />
+        <result column="member_id" property="memberId" />
+        <result column="item_id" property="itemId" />
+        <result column="quantity" property="quantity" />
+    </resultMap>
+    
+    <resultMap id="WarehouseDistributionVoResultMap"
+		type="com.arkfancy.pokemon.domain.vo.WarehouseDistributionVO"
+		extends="BaseResultMap">
+		<result column="member_name" property="memberName" />
+		<result column="item_name" property="itemName" />
+	</resultMap>
+    
+    <select id="selectDistributionDetailPage" resultMap="WarehouseDistributionVoResultMap">
+    	select
+    		pm.member_id,
+    		pm.member_name,
+    		pi.item_id,
+    		pi.item_name,
+    		pwd.record_date,
+    		pwd.quantity
+    	from
+    		pokemon_warehouse_distribution pwd
+    	left join
+    		pokemon_member pm
+    		on pm.member_id = pwd.member_id
+    	left join
+    		pokemon_item pi
+    		on pi.item_id = pwd.item_id
+    	order by
+    		pwd.record_date desc,
+    		pi.item_id,
+    		pwd.quantity,
+    		pm.join_date
+	</select>
+	
+	<select id="selectDistributionSum" resultMap="WarehouseDistributionVoResultMap">
+		select
+    		pm.member_id,
+    		pm.member_name,
+    		pi.item_id,
+    		pi.item_name,
+    		sum(pwd.quantity) quantity
+    	from
+    		pokemon_warehouse_distribution pwd
+    	left join
+    		pokemon_member pm
+    		on pm.member_id = pwd.member_id
+    	left join
+    		pokemon_item pi
+    		on pi.item_id = pwd.item_id
+    	where 
+    		pm.leave_date is null
+    	group by
+    		pm.member_id,
+    		pm.member_name,
+    		pi.item_id,
+    		pi.item_name
+	</select>
+
+</mapper>

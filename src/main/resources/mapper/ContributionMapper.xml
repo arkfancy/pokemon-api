@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arkfancy.pokemon.mapper.ContributionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.arkfancy.pokemon.entity.Contribution">
+        <id column="id" property="id" />
+        <result column="record_date" property="recordDate" />
+        <result column="member_id" property="memberId" />
+        <result column="contribution" property="contribution" />
+    </resultMap>
+    
+    <resultMap id="ContributionVoResultMap"
+		type="com.arkfancy.pokemon.domain.vo.ContributionVO"
+		extends="BaseResultMap">
+		<result column="member_name" property="memberName" />
+	</resultMap>
+    
+    <select id="selectLastContributionList" resultMap="ContributionVoResultMap">
+		select
+			pu.member_id,
+			pu.member_name,
+			pc.record_date,
+			ifnull(pc.contribution, -1) contribution
+		from pokemon_member pu
+		left join (
+			select
+				member_id,
+				contribution,
+				record_date
+			from
+				pokemon_contribution
+			where
+				record_date = (select max(record_date) from pokemon_contribution) 
+		) pc on pu.member_id = pc.member_id
+		where pu.leave_date is null
+		order by
+			contribution desc,
+			pu.id
+	</select>
+
+</mapper>
