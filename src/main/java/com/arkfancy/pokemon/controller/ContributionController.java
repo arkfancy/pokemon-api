@@ -42,7 +42,7 @@ public class ContributionController extends ApiController {
 	@Login
 	public R<List<Contribution>> insertList(@RequestBody List<Contribution> contributions) {
 		List<Contribution> listWithoutEmptyContribution = contributions.stream()
-				.filter(e -> e.getContribution() != null && e.getContribution() > 0).collect(Collectors.toList());
+				.filter(e -> e.getContribution() != null && e.getContribution() >= 0).collect(Collectors.toList());
 		contributionService.saveBatch(listWithoutEmptyContribution);
 		return success(contributions);
 	}
