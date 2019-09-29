@@ -72,7 +72,7 @@ public class WarehouseDistributionController extends ApiController {
 	@Login
 	public R<List<WarehouseDistribution>> itemToUser(@RequestBody List<WarehouseDistribution> warehouseDistribution) {
 		List<WarehouseDistribution> listWithoutEmptyQuantity = warehouseDistribution.stream()
-				.filter(e -> e.getQuantity() != null && e.getQuantity() != 0).collect(Collectors.toList());
+				.filter(e -> e.getQuantity() != null && e.getQuantity() > 0).collect(Collectors.toList());
 		warehouseDistributionService.saveBatch(listWithoutEmptyQuantity);
 		return success(listWithoutEmptyQuantity);
 	}
