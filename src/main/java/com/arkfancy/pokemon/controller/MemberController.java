@@ -38,9 +38,10 @@ public class MemberController extends ApiController {
 	}
 
 	@GetMapping("/page/{current}-{size}")
-	public R<IPage<Member>> selectPage(@PathVariable Integer current, @PathVariable Integer size) {
+	public R<IPage<Member>> selectPage(@PathVariable Integer current, @PathVariable Integer size,
+			@RequestParam(defaultValue = "false") boolean containLeave) {
 		return success(new Member().selectPage(new Page<>(current, size),
-				new QueryWrapper<Member>().isNull(Member.LEAVE_DATE).orderByAsc(Member.ID)));
+				new QueryWrapper<Member>().isNull(!containLeave, Member.LEAVE_DATE).orderByAsc(Member.ID)));
 	}
 
 	@PostMapping("")
