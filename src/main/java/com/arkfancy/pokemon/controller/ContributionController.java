@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.arkfancy.pokemon.domain.vo.ContributionVO;
 import com.arkfancy.pokemon.entity.Contribution;
-import com.arkfancy.pokemon.entity.WarehouseDistribution;
 import com.arkfancy.pokemon.service.ContributionService;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.mybatisplus.extension.api.ApiController;

@@ -47,7 +47,7 @@ public class MemberController extends ApiController {
 	@PostMapping("")
 	@Login
 	public R<Member> insert(@RequestBody Member member) {
-		member.setMemberId(IDCreator.hashCodeId(member.getMemberName())).insert();
+		member.setMemberId(IDCreator.hashCodeId(member.getMemberName() + member.getJoinDate())).insert();
 		return success(member);
 	}
 }
