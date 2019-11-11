@@ -34,5 +34,5 @@ public interface WarehouseDistributionService extends IService<WarehouseDistribu
 	 * @date 2019年9月12日 下午3:22:58
 	 * @return
 	 */
-	List<WarehouseDistributionVO> selectDistributionSum();
+	List<WarehouseDistributionVO> selectDistributionSum(String itemId);
 }
