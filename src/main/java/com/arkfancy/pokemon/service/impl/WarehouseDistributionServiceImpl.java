@@ -28,7 +28,7 @@ public class WarehouseDistributionServiceImpl extends ServiceImpl<WarehouseDistr
 	}
 
 	@Override
-	public List<WarehouseDistributionVO> selectDistributionSum() {
-		return baseMapper.selectDistributionSum();
+	public List<WarehouseDistributionVO> selectDistributionSum(String itemId) {
+		return baseMapper.selectDistributionSum(itemId);
 	}
 }

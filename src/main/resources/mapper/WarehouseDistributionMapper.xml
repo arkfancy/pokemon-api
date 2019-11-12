@@ -58,6 +58,9 @@
     		on pi.item_id = pwd.item_id
     	where 
     		pm.leave_date is null
+    	<if test="itemId != null and itemId != ''">
+    		and pi.item_id = ${itemId}
+    	</if>
     	group by
     		pm.member_id,
     		pm.member_name,
