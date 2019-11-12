@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arkfancy.pokemon.domain.vo.WarehouseDistributionSumVO;
@@ -50,9 +51,9 @@ public class WarehouseDistributionController extends ApiController {
 	 * @return
 	 */
 	@GetMapping("/sum")
-	public R<List<WarehouseDistributionSumVO>> sum() {
+	public R<List<WarehouseDistributionSumVO>> sum(@RequestParam(required=false) String itemId) {
 		List<WarehouseDistributionSumVO> result = new ArrayList<>();
-		warehouseDistributionService.selectDistributionSum().stream()
+		warehouseDistributionService.selectDistributionSum(itemId).stream()
 				.collect(Collectors.groupingBy(WarehouseDistributionVO::getMemberName)).forEach((memberName, vos) -> {
 					WarehouseDistributionSumVO sumVo = new WarehouseDistributionSumVO();
 					sumVo.setMemberName(memberName);
@@ -71,8 +72,10 @@ public class WarehouseDistributionController extends ApiController {
 	@PostMapping("/list")
 	@Login
 	public R<List<WarehouseDistribution>> itemToUser(@RequestBody List<WarehouseDistribution> warehouseDistribution) {
-		warehouseDistributionService.saveBatch(warehouseDistribution);
-		return success(warehouseDistribution);
+		List<WarehouseDistribution> listWithoutEmptyQuantity = warehouseDistribution.stream()
+				.filter(e -> e.getQuantity() != null && e.getQuantity() > 0).collect(Collectors.toList());
+		warehouseDistributionService.saveBatch(listWithoutEmptyQuantity);
+		return success(listWithoutEmptyQuantity);
 	}
 
 }

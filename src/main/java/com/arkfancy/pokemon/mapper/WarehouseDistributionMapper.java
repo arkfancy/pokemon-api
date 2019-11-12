@@ -32,6 +32,6 @@ public interface WarehouseDistributionMapper extends BaseMapper<WarehouseDistrib
 	 * @author arkfancy 2019年9月12日 下午3:22:02
 	 * @return
 	 */
-	List<WarehouseDistributionVO> selectDistributionSum();
+	List<WarehouseDistributionVO> selectDistributionSum(String itemId);
 
 }
