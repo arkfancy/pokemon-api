@@ -39,4 +39,31 @@
 			pu.id
 	</select>
 
+	<select id="selectContributionList" resultMap="ContributionVoResultMap">
+		select
+			pu.member_id,
+			pu.member_name,
+			pc.record_date,
+			ifnull(pc.contribution, -1) contribution
+		from pokemon_member pu
+		right join (
+			select
+				member_id,
+				contribution,
+				record_date
+			from
+				pokemon_contribution
+			where
+				<if test="recordDate == null || recordDate == ''">
+					record_date = (select max(record_date) from pokemon_contribution) 
+				</if>
+				<if test="recordDate != null and recordDate != ''">
+					record_date = #{recordDate}
+				</if>
+		) pc on pu.member_id = pc.member_id
+		where pu.leave_date is null
+		order by
+			contribution desc,
+			pu.id
+	</select>
 </mapper>

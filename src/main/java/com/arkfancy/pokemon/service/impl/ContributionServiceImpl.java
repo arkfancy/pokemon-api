@@ -23,7 +23,13 @@ public class ContributionServiceImpl extends ServiceImpl<ContributionMapper, Con
 		implements ContributionService {
 
 	@Override
+	@Deprecated
 	public List<ContributionVO> selectLastContributionList() {
 		return baseMapper.selectLastContributionList();
+	}
+
+	@Override
+	public List<ContributionVO> selectContributionList(String recodeDate) {
+		return baseMapper.selectContributionList(recodeDate);
 	}
 }

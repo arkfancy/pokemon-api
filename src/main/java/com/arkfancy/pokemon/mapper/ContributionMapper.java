@@ -22,5 +22,8 @@ public interface ContributionMapper extends BaseMapper<Contribution> {
 	 * @author arkfancy 2019年9月12日 下午3:07:15
 	 * @return
 	 */
+	@Deprecated
 	List<ContributionVO> selectLastContributionList();
+
+	List<ContributionVO> selectContributionList(String recodeDate);
 }
