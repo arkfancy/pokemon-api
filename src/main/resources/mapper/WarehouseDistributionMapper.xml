@@ -59,7 +59,7 @@
     	where 
     		pm.leave_date is null
     	<if test="itemId != null and itemId != ''">
-    		and pi.itemId = ${itemId}
+    		and pi.item_id = ${itemId}
     	</if>
     	group by
     		pm.member_id,
