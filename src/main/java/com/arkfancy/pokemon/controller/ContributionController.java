@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arkfancy.pokemon.domain.vo.ContributionVO;
@@ -33,8 +34,8 @@ public class ContributionController extends ApiController {
 	private ContributionService contributionService;
 
 	@GetMapping("/list")
-	public R<List<ContributionVO>> selectList() {
-		return success(contributionService.selectLastContributionList());
+	public R<List<ContributionVO>> selectList(@RequestParam(required = false) String recordDate) {
+		return success(contributionService.selectContributionList(recordDate));
 	}
 
 	@PostMapping("/list")
