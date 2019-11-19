@@ -46,7 +46,7 @@
 			pc.record_date,
 			ifnull(pc.contribution, -1) contribution
 		from pokemon_member pu
-		right join (
+		left join (
 			select
 				member_id,
 				contribution,
