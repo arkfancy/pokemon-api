@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author arkfancy
- * @since 2019-09-27
+ * @since 2019-11-25
  */
 @TableName("pokemon_member")
 public class Member extends Model<Member> {
@@ -38,6 +38,12 @@ public class Member extends Model<Member> {
      */
     @TableField("member_name")
     private String memberName;
+
+    /**
+     * 级别
+     */
+    @TableField("rank_id")
+    private Integer rankId;
 
     /**
      * 加入时间
@@ -79,6 +85,15 @@ public class Member extends Model<Member> {
         return this;
     }
 
+    public Integer getRankId() {
+        return rankId;
+    }
+
+    public Member setRankId(Integer rankId) {
+        this.rankId = rankId;
+        return this;
+    }
+
     public LocalDate getJoinDate() {
         return joinDate;
     }
@@ -103,6 +118,8 @@ public class Member extends Model<Member> {
 
     public static final String MEMBER_NAME = "member_name";
 
+    public static final String RANK_ID = "rank_id";
+
     public static final String JOIN_DATE = "join_date";
 
     public static final String LEAVE_DATE = "leave_date";
@@ -118,6 +135,7 @@ public class Member extends Model<Member> {
         "id=" + id +
         ", memberId=" + memberId +
         ", memberName=" + memberName +
+        ", rankId=" + rankId +
         ", joinDate=" + joinDate +
         ", leaveDate=" + leaveDate +
         "}";
