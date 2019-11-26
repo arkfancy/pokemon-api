@@ -1,10 +1,13 @@
 package com.arkfancy.pokemon.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.arkfancy.pokemon.entity.Dungeon;
 import com.arkfancy.pokemon.mapper.DungeonMapper;
 import com.arkfancy.pokemon.service.DungeonService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -16,5 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DungeonServiceImpl extends ServiceImpl<DungeonMapper, Dungeon> implements DungeonService {
+
+	@Override
+	public List<Dungeon> selectDungeonList(String recodeDate) {
+		return baseMapper.selectDungeonList(recodeDate);
+	}
 
 }

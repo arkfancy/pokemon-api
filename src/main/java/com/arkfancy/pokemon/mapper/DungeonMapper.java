@@ -1,5 +1,7 @@
 package com.arkfancy.pokemon.mapper;
 
+import java.util.List;
+
 import com.arkfancy.pokemon.entity.Dungeon;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -12,5 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2019-11-25
  */
 public interface DungeonMapper extends BaseMapper<Dungeon> {
+
+	List<Dungeon> selectDungeonList(String recodeDate);
 
 }

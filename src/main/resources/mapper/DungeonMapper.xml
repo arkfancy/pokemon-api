@@ -10,4 +10,30 @@
         <result column="dungeon_contribution" property="dungeonContribution" />
     </resultMap>
 
+	<resultMap id="DungeonVoResultMap" type="com.arkfancy.pokemon.domain.vo.DungeonVO" extends="BaseResultMap">
+		<result column="member_name" property="memberName"/>
+	</resultMap>
+
+	<select id="selectDungeonList" resultMap="ContributionVoResultMap">
+		select
+			pd.record_date,
+			pd.member_id,
+			pm.member_name,
+			pd.dungeon_contribution
+		from pokemon_dungeon pd
+		inner join
+			pokemon_member pm
+			on pm.member_id = pd.member_id
+		<where>
+			<if test="recordDate == null || recordDate == ''">
+				pd.record_date = (select max(record_date) from pokemon_dungeon) 
+			</if>
+			<if test="recordDate != null and recordDate != ''">
+				pd.record_date = #{recordDate}
+			</if>
+		</where>
+		order by
+			pd.dungeon_contribution desc,
+			pm.id
+	</select>
 </mapper>
