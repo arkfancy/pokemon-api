@@ -18,6 +18,7 @@ import com.arkfancy.pokemon.entity.Member;
 import com.arkfancy.pokemon.service.MemberService;
 import com.arkfancy.pokemon.support.util.IDCreator;
 import com.baomidou.kisso.annotation.Login;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.ApiController;
@@ -38,6 +39,11 @@ public class MemberController extends ApiController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@GetMapping("/{memberId}")
+	public R<Member> get(@PathVariable Integer memberId) {
+		return success(memberService.getOne(new QueryWrapper<Member>().eq(Member.MEMBER_ID, memberId)));
+	}
 
 	@GetMapping("/list")
 	public R<List<Member>> selectList(@RequestParam(defaultValue = "false") boolean containLeave) {

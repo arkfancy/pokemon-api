@@ -36,6 +36,7 @@
 			</if>
 		</where>
 		order by 
+			pm.rank_id,
 			pm.id
 	</select>
 	
