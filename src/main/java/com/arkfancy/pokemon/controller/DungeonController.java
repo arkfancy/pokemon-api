@@ -1,15 +1,15 @@
 package com.arkfancy.pokemon.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.arkfancy.pokemon.entity.Contribution;
 import com.arkfancy.pokemon.entity.Dungeon;
 import com.arkfancy.pokemon.service.DungeonService;
 import com.baomidou.kisso.annotation.Login;
@@ -36,5 +36,10 @@ public class DungeonController extends ApiController {
 	public R<List<Dungeon>> insertList(@RequestBody List<Dungeon> dungeons) {
 		dungeonService.saveBatch(dungeons);
 		return success(dungeons);
+	}
+	
+	@GetMapping("/list")
+	public R<List<Dungeon>> selectList(@RequestParam(required = false) String recordDate){
+		return success(dungeonService.selectDungeonList(recordDate));
 	}
 }
