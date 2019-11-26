@@ -14,7 +14,7 @@
 		<result column="member_name" property="memberName"/>
 	</resultMap>
 
-	<select id="selectDungeonList" resultMap="ContributionVoResultMap">
+	<select id="selectDungeonList" resultMap="DungeonVoResultMap">
 		select
 			pd.record_date,
 			pd.member_id,
