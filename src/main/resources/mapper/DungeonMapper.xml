@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arkfancy.pokemon.mapper.DungeonMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.arkfancy.pokemon.entity.Dungeon">
+        <id column="id" property="id" />
+        <result column="record_date" property="recordDate" />
+        <result column="member_id" property="memberId" />
+        <result column="dungeon_contribution" property="dungeonContribution" />
+    </resultMap>
+
+	<resultMap id="DungeonVoResultMap" type="com.arkfancy.pokemon.domain.vo.DungeonVO" extends="BaseResultMap">
+		<result column="member_name" property="memberName"/>
+	</resultMap>
+
+	<select id="selectDungeonList" resultMap="ContributionVoResultMap">
+		select
+			pd.record_date,
+			pd.member_id,
+			pm.member_name,
+			pd.dungeon_contribution
+		from pokemon_dungeon pd
+		inner join
+			pokemon_member pm
+			on pm.member_id = pd.member_id
+		<where>
+			<if test="recordDate == null || recordDate == ''">
+				pd.record_date = (select max(record_date) from pokemon_dungeon) 
+			</if>
+			<if test="recordDate != null and recordDate != ''">
+				pd.record_date = #{recordDate}
+			</if>
+		</where>
+		order by
+			pd.dungeon_contribution desc,
+			pm.id
+	</select>
+</mapper>

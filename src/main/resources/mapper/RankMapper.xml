@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arkfancy.pokemon.mapper.RankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.arkfancy.pokemon.entity.Rank">
+        <id column="id" property="id" />
+        <result column="rank_id" property="rankId" />
+        <result column="rank_name" property="rankName" />
+        <result column="activity_coefficient" property="activityCoefficient" />
+    </resultMap>
+
+</mapper>
