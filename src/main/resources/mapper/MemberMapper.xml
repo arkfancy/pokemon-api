@@ -10,5 +10,34 @@
         <result column="join_date" property="joinDate" />
         <result column="leave_date" property="leaveDate" />
     </resultMap>
+    
+	<resultMap id="MemberVoResultMap"
+		type="com.arkfancy.pokemon.domain.vo.MemberVO"
+		extends="BaseResultMap">
+		<result column="rank_name" property="rankName" />
+	</resultMap>
+	
+	<select id="selectMembers" resultMap="MemberVoResultMap">
+		select
+			pm.member_id,
+			pm.member_name,
+			pm.rank_id,
+			pr.rank_name,
+			pm.join_date,
+			pm.leave_date
+		from
+			pokemon_member pm
+		left join
+			pokemon_rank pr
+			on pr.rank_id = pm.rank_id
+		<where>
+			<if test="containLeave == null || containLeave == false">
+				and pm.leave_date is null
+			</if>
+		</where>
+		order by 
+			pm.id
+	</select>
+	
 
 </mapper>
