@@ -36,4 +36,30 @@
 			pd.dungeon_contribution desc,
 			pm.id
 	</select>
+	
+	<select id="selectDungeonContributionSum" resultMap="DungeonVoResultMap">
+		select
+			pd.member_id,
+			pm.member_name,
+			sum(pd.dungeon_contribution) dungeon_contribution
+		from pokemon_dungeon pd
+		inner join
+			pokemon_member pm
+			on pm.member_id = pd.member_id
+		<where>
+			<if test="previousDate != null and previousDate != ''">
+				and pd.record_date &gt;= #{previousDate}
+			</if>
+			<if test="currentDate != null and currentDate != ''">
+				and pd.record_date &lt;= #{currentDate}
+			</if>
+		</where>
+		group by
+			pd.member_id,
+			pm.member_name
+		order by
+			dungeon_contribution desc,
+			pm.id
+	</select>
+	
 </mapper>

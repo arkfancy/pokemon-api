@@ -17,4 +17,6 @@ public interface DungeonMapper extends BaseMapper<Dungeon> {
 
 	List<Dungeon> selectDungeonList(String recodeDate);
 
+	List<Dungeon> selectDungeonContributionSum(String previousDate, String currentDate);
+
 }

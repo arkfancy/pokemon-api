@@ -25,4 +25,6 @@ public interface DungeonService extends IService<Dungeon> {
 	 */
 	List<Dungeon> selectDungeonList(String recodeDate);
 
+	List<Dungeon> selectDungeonContributionSum(String previousDate, String currentDate);
+
 }

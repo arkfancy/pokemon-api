@@ -37,9 +37,15 @@ public class DungeonController extends ApiController {
 		dungeonService.saveBatch(dungeons);
 		return success(dungeons);
 	}
-	
+
 	@GetMapping("/list")
-	public R<List<Dungeon>> selectList(@RequestParam(required = false) String recordDate){
+	public R<List<Dungeon>> selectList(@RequestParam(required = false) String recordDate) {
 		return success(dungeonService.selectDungeonList(recordDate));
+	}
+
+	@GetMapping("/sum")
+	public R<List<Dungeon>> sum(@RequestParam(required = false) String previousDate,
+			@RequestParam(required = false) String currentDate) {
+		return success(dungeonService.selectDungeonContributionSum(previousDate, currentDate));
 	}
 }

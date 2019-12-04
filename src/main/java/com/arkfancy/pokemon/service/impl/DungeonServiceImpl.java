@@ -25,4 +25,9 @@ public class DungeonServiceImpl extends ServiceImpl<DungeonMapper, Dungeon> impl
 		return baseMapper.selectDungeonList(recodeDate);
 	}
 
+	@Override
+	public List<Dungeon> selectDungeonContributionSum(String previousDate, String currentDate) {
+		return baseMapper.selectDungeonContributionSum(previousDate, currentDate);
+	}
+
 }
